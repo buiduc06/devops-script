@@ -49,7 +49,7 @@ sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
 ```
 
-1. Cài đặt Mysql
+3. Cài đặt Mysql
 
 ```bash
 # Thêm MySQL Community Repository
@@ -86,13 +86,13 @@ FLUSH PRIVILEGES;
 # trường hợp remote đến database không thành công thì cần check lại xem đã mở port 3306 ở security group or firewalld của server chưa.
 ```
 
-1. cài đặt git 
+4. cài đặt git 
 
 ```bash
 sudo yum -y install git
 ```
 
-1. cài đặt composer
+5. cài đặt composer
 
 ```bash
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -103,7 +103,7 @@ sudo chmod 775 -R /usr/local/bin
 composer -v
 ```
 
-1. cài đặt NodeJS & npm
+6. cài đặt NodeJS & npm
 
 ```bash
 # Tải nvm
@@ -121,7 +121,7 @@ nvm use v16.10.0
 nvm alias default v16.10.0
 ```
 
-1. thay đổi timezone của server
+7. thay đổi timezone của server
 
 ```bash
 # kiểm tra timezone hiện tại
@@ -137,7 +137,7 @@ sudo rm -rf /etc/localtime
 sudo ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 ```
 
-1. clone source code
+8. clone source code
 
 ```bash
 # ở đây sử dụng source code bagisto cho việc demo cài đặt
@@ -150,7 +150,7 @@ php artisan bagisto:install
 #Xem thêm hướng dẫn ở đây: https://webkul.com/blog/laravel-ecommerce-website/
 ```
 
-1. cấu hình vhost nginx
+9. cấu hình vhost nginx
 
 ```bash
 # tạo file vhost mới
@@ -161,7 +161,7 @@ server {
     listen 80;
     listen [::]:80 ipv6only=on;
 
-    root /var/www/app/public;
+    root /var/www/app/bagisto/public;
     index index.php index.html index.htm;
 
     server_name _;
@@ -187,7 +187,7 @@ sudo systemctl restart nginx
 
 ```
 
-1. cấp quyền
+10. cấp quyền
 
 ```bash
 # cấp quyền cho folder
@@ -217,7 +217,7 @@ semanage fcontext -a -t httpd_sys_rw_content_t "/var/www/app/bagisto/vendor(/.*)
 restorecon -Rv /var/www/app/bagisto
 ```
 
-1. cài đặt supervisord để quản lý background job
+11. cài đặt supervisord để quản lý background job
 
 ```bash
 # cài đặt thêm gói mở rộng 
@@ -251,7 +251,7 @@ stopwaitsecs=3600
 sudo systemctl restart supervisord.service
 ```
 
-1. cài đặt ssl (chỉ dành cho domain) (mở rộng)
+12. cài đặt ssl (chỉ dành cho domain) (mở rộng)
 
 ```bash
 sudo yum-config-manager --enable epel
