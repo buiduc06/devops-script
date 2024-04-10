@@ -259,3 +259,16 @@ sudo yum install certbot python-certbot-nginx
 sudo certbot --nginx
 sudo certbot certonly --nginx
 ```
+
+13. cài đặt tự động renew ssl
+# cách 1: tạo file certbot trong folder /etc/cron.d với nội dung sau
+```bash
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+0*/12***root certbot -q renew --nginx
+```
+# cách 2
+```bash
+sudo crontab -e
+0 12 * * * /usr/bin/certbot renew --quiet
+```
